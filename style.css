@@ -116,6 +116,29 @@ body.is-intro {
   text-decoration: none;
 }
 
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  margin-left: auto;
+  margin-right: clamp(1rem, 12vw, 170px);
+}
+
+.navbar__link {
+  color: #1b1b1b;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.2s ease;
+}
+
+.navbar__link:hover,
+.navbar__link:focus-visible {
+  color: var(--blue);
+}
+
 .navbar__logo {
   height: 40px;
   width: auto;
@@ -367,8 +390,8 @@ body.is-intro {
 .footer {
   min-height: 52.08vw;
   display: flex;
-  align-items: center;
-  padding: 4rem 0 2rem;
+  align-items: flex-end;
+  padding: 4rem 0 2.5rem;
   text-align: center;
 }
 
@@ -524,8 +547,19 @@ body.is-intro {
   }
 
   .navbar__brand {
-    margin-left: 1rem;
-    gap: 0.6rem;
+    margin-left: 0.75rem;
+    gap: 0.45rem;
+  }
+
+  .navbar__nav {
+    gap: 0.55rem;
+    margin-left: auto;
+    margin-right: 0.75rem;
+  }
+
+  .navbar__link {
+    font-size: 0.65rem;
+    letter-spacing: 0.02em;
   }
 
   .navbar__logo {
@@ -533,8 +567,7 @@ body.is-intro {
   }
 
   .navbar__title {
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
+    display: none;
   }
 
   .about {
