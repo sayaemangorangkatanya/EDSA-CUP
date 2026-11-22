@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDSA Cup 2026</title>
+  <meta name="description" content="EDSA Cup 26 - Badminton and Futsal tournament by the English Department Student Association, UIN Ar-Raniry.">
+  <link rel="icon" href="Picture/Logo%20only.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Kalau intro sudah pernah diputar di kunjungan ini (misal balik dari register.html),
+       sembunyikan dari awal supaya tidak ada kedipan -->
+  <script>
+    try {
+      if (sessionStorage.getItem("edsaIntroSeen")) {
+        var s = document.createElement("style");
+        s.textContent = ".intro{display:none!important}body.is-intro{overflow:auto!important}";
+        document.head.appendChild(s);
+      }
+    } catch (e) { /* abaikan */ }
+  </script>
+</head>
+<body class="is-intro">
+
+  <!-- INTRO VIDEO (plays first, then slides up) -->
+  <div class="intro" id="intro" aria-label="EDSA Cup 2026 intro">
+    <video class="intro__video" id="intro-video" playsinline preload="auto">
+      <source src="Video/EDSA_Cup_26_logo_motion.mp4" type="video/mp4">
+    </video>
+    <button class="intro__skip" id="intro-skip" type="button">Skip &rsaquo;</button>
+  </div>
+  <noscript>
+    <style>
+      .intro { display: none; }
+      body.is-intro { overflow: auto; }
+    </style>
+  </noscript>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <a href="#home" class="navbar__brand">
+      <img src="Picture/Logo%20only.png" alt="EDSA Cup logo" class="navbar__logo">
+      <span class="navbar__title">EDSA CUP 2026</span>
+    </a>
+  </header>
+
+  <main class="page">
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero__inner">
+        <div class="hero__main">
+          <img src="Picture/Edsa%20cup.png" alt="EDSA Cup 26" class="hero__logo">
+          <a href="register.html" class="btn-register">REGISTER</a>
+        </div>
+
+        <aside class="date-card reveal">
+          <h2 class="date-card__title">DATE EVENT</h2>
+          <p>Badminton competition : 5 &amp; 6 December 2026</p>
+          <p>Futsal competition : 5 December 2026</p>
+          <p class="date-card__note">Note : Badminton have two days competition</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="container about__inner">
+        <div class="about__text reveal">
+          <h2 class="section-title">ABOUT EDSA CUP</h2>
+          <p>More Than a Competition, It's a Celebration of Unity.</p>
+          <p>
+            EDSA Cup 26 is a sports tournament organized by the English Department
+            Student Association (EDSA), bringing students together through the spirit
+            of sportsmanship, teamwork, and healthy competition.
+          </p>
+          <p>
+            Featuring Badminton and Futsal, this event provides a platform for students
+            to showcase their talents, challenge their limits, and build meaningful
+            connections beyond the classroom.
+          </p>
+          <p>
+            Through every match and every moment, we believe that true victory is not
+            only about winning, but also about courage, unity, and the passion to grow
+            together.
+          </p>
+          <p><strong>Play Bold, Stay Gold.</strong></p>
+        </div>
+        <img src="Picture/SPORTS.png" alt="" class="about__art reveal" aria-hidden="true">
+      </div>
+    </section>
+
+    <!-- COMPETITIONS -->
+    <section class="competition" id="competition">
+      <div class="container">
+        <h2 class="section-title reveal">EVENT COMPETITION</h2>
+
+        <div class="comp-grid">
+          <article class="comp-card comp-card--futsal reveal">
+            <img src="Picture/futsal.jpg" alt="Futsal player" class="comp-card__img">
+            <div class="comp-card__body">
+              <h3 class="comp-card__title">FUTSAL</h3>
+              <p class="comp-card__date">5 December 2026</p>
+              <a href="register.html#futsal" class="comp-card__btn">Register</a>
+            </div>
+          </article>
+
+          <article class="comp-card comp-card--badminton reveal">
+            <img src="Picture/badminton.jpg" alt="Badminton player" class="comp-card__img">
+            <div class="comp-card__body">
+              <h3 class="comp-card__title">BADMINTON</h3>
+              <p class="comp-card__date">5 &amp; 6 December 2026</p>
+              <a href="register.html#badminton" class="comp-card__btn">Register</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer class="footer" id="contact">
+      <div class="container footer__inner">
+        <img src="Picture/Edsa%20cup.png" alt="EDSA Cup 26" class="footer__logo">
+
+        <div class="footer__info">
+          <div class="footer__col">
+            <h3 class="footer__heading">CONTACT</h3>
+            <ul class="contact-list" id="contact-list">
+              <!-- Diisi otomatis dari script.js (CONFIG.contacts) -->
+            </ul>
+          </div>
+
+          <div class="footer__col">
+            <h3 class="footer__heading">SOCIAL MEDIA</h3>
+            <ul class="contact-list">
+              <li>
+                <a href="#" class="social-link" id="instagram-link" target="_blank" rel="noopener noreferrer">
+                  <svg class="social-link__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"></circle>
+                  </svg>
+                  <span id="instagram-text">Instagram</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="footer__copy">&copy; 2026 English Department Student Association (EDSA) &middot; UIN Ar-Raniry</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
