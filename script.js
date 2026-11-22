@@ -27,9 +27,114 @@ document.addEventListener("DOMContentLoaded", () => {
   setupInstagram();
   setupNavbarShadow();
 
-  // animasi reveal baru mulai setelah intro selesai
-  setupIntro(() => setTimeout(setupRevealOnScroll, 250));
+  // transisi antar halaman -> intro (kalau ada) -> animasi reveal
+  setupPageTransition(() => {
+    setupIntro(() => setTimeout(setupRevealOnScroll, 250));
+  });
 });
+
+/* Transisi antar halaman dengan layar putih.
+   Maju  (index -> register): putih naik dari bawah, di halaman baru slide ke ATAS.
+   Balik (register -> index): putih turun dari atas, di halaman baru slide ke BAWAH.
+   Urutan halaman ada di ORDER; makin kecil nomornya = makin "awal". */
+function setupPageTransition(onReady) {
+  const body = document.body;
+  const LAST_KEY = "edsaLastPage";
+  const ORDER = ["index", "register"];
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const pageId = (pathname) => {
+    const name = pathname.split("/").pop().replace(/\.html$/i, "");
+    return name || "index";
+  };
+  const rank = (id) => Math.max(0, ORDER.indexOf(id));
+  const isBack = (fromId, toId) => rank(toId) < rank(fromId);
+
+  const getLast = () => { try { return sessionStorage.getItem(LAST_KEY); } catch (e) { return null; } };
+  const setLast = (id) => { try { sessionStorage.setItem(LAST_KEY, id); } catch (e) { /* abaikan */ } };
+
+  const current = pageId(window.location.pathname);
+  const last = getLast();
+  setLast(current);
+
+  // Kalau intro video akan diputar, intro itu sendiri yang jadi pembuka -> lewati transisi
+  const introWillPlay = !!document.getElementById("intro") && !introSeen() && !reduceMotion;
+  const arrivedFromOtherPage = !!last && last !== current;
+
+  /* ---- MASUK ---- */
+  if (!arrivedFromOtherPage || reduceMotion || introWillPlay) {
+    body.classList.add("wipe-skip"); // tidak ada animasi, layar putih langsung hilang
+    onReady();
+  } else {
+    if (isBack(last, current)) body.classList.add("wipe-back"); // balik -> slide ke bawah
+
+    let revealed = false;
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      requestAnimationFrame(() => {
+        body.classList.add("wipe-done");
+        setTimeout(onReady, 250);
+      });
+    };
+    // tunggu halaman selesai dimuat (maksimal 1,2 detik)
+    if (document.readyState === "complete") reveal();
+    else {
+      window.addEventListener("load", reveal, { once: true });
+      setTimeout(reveal, 1200);
+    }
+  }
+
+  if (reduceMotion) return;
+
+  /* ---- KELUAR (klik link ke halaman lain) ---- */
+  document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const a = e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
+
+    let url;
+    try { url = new URL(a.href, window.location.href); } catch (err) { return; }
+
+    // hanya link internal ke halaman lain (bukan #anchor di halaman yang sama / link luar)
+    if (url.protocol !== window.location.protocol || url.host !== window.location.host) return;
+    if (url.pathname === window.location.pathname) return;
+
+    e.preventDefault();
+    if (body.classList.contains("wipe-out")) return; // sudah berjalan
+
+    const back = isBack(current, pageId(url.pathname));
+
+    // siapkan posisi awal layar putih TANPA animasi (atas kalau balik, bawah kalau maju)
+    body.classList.remove("wipe-after-up", "wipe-after-down");
+    body.classList.add("wipe-reset");
+    body.classList.toggle("wipe-from-top", back);
+    void body.offsetWidth; // paksa browser menerapkan posisi awal
+    body.classList.remove("wipe-reset");
+
+    body.classList.add("wipe-out"); // layar putih menutup
+    setTimeout(() => { window.location.href = url.href; }, 650);
+
+    // pengaman: kalau pindah halaman macet, kembalikan tampilan
+    setTimeout(() => body.classList.remove("wipe-out"), 5000);
+  });
+
+  /* ---- Tombol Back/Forward browser: halaman dipulihkan dari cache dalam keadaan tertutup putih ---- */
+  window.addEventListener("pageshow", (e) => {
+    if (!e.persisted) return;
+
+    const from = getLast();
+    setLast(current);
+    const back = !!from && from !== current && isBack(from, current);
+
+    if (body.classList.contains("wipe-out")) {
+      // putih sedang menutup -> buka ke arah yang sesuai
+      body.classList.add(back ? "wipe-after-down" : "wipe-after-up");
+      body.classList.remove("wipe-out");
+    }
+  });
+}
 
 /* Sudah pernah lihat intro di tab ini? (aman kalau storage diblokir browser) */
 function introSeen() {
@@ -188,7 +293,7 @@ function setupRevealOnScroll() {
 
   if (!("IntersectionObserver" in window)) {
     items.forEach((el) => el.classList.add("is-visible"));
-    return;
+    return;a
   }
 
   const observer = new IntersectionObserver(

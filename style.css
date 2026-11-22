@@ -92,6 +92,80 @@ body.is-intro {
   display: none;
 }
 
+/* ---------- PAGE TRANSITION (layar putih slide antar halaman) ----------
+   Maju  : putih naik dari bawah -> di halaman baru slide ke ATAS
+   Balik : putih turun dari atas -> di halaman baru slide ke BAWAH
+   ::before = layar putih saat halaman baru dibuka
+   ::after  = layar putih yang menutup saat pindah halaman */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #ffffff;
+  pointer-events: none;
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+}
+
+/* --- masuk (halaman baru dibuka) --- */
+body::before {
+  transform: translateY(0);
+  animation: wipeFailsafe 0.01s linear 4s forwards; /* pengaman kalau JS gagal jalan */
+}
+
+body.wipe-done::before {
+  transform: translateY(-100%);   /* maju: slide ke atas */
+}
+
+body.wipe-back.wipe-done::before {
+  transform: translateY(100%);    /* balik: slide ke bawah */
+}
+
+body.wipe-skip::before {
+  display: none;
+}
+
+/* --- keluar (klik link ke halaman lain) --- */
+body::after {
+  transform: translateY(100%);    /* maju: mulai dari bawah */
+}
+
+body.wipe-from-top::after {
+  transform: translateY(-100%);   /* balik: mulai dari atas */
+}
+
+body.wipe-out::after {
+  transform: translateY(0);       /* menutup layar */
+}
+
+/* halaman dipulihkan dari cache (tombol Back/Forward) dalam keadaan tertutup putih */
+body.wipe-after-up::after {
+  transform: translateY(-100%);
+}
+
+body.wipe-after-down::after {
+  transform: translateY(100%);
+}
+
+body.wipe-reset::after {
+  transition: none;
+}
+
+@keyframes wipeFailsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+
 /* ---------- NAVBAR ---------- */
 .navbar {
   position: fixed;
@@ -362,8 +436,20 @@ body.is-intro {
   color: var(--white);
 }
 
-.comp-card--badminton .comp-card__date {
-  color: #1a2a00;
+.comp-card--futsal .comp-card__description {
+  color: var(--white);
+}
+
+/* kartu Badminton: semua tulisan hitam */
+.comp-card--badminton .comp-card__title,
+.comp-card--badminton .comp-card__date,
+.comp-card--badminton .comp-card__description {
+  color: #000000;
+}
+
+.comp-card__description {
+  margin-top: -0.7rem; /* rapatkan dengan baris tanggal di atasnya */
+  font-weight: 500;
 }
 
 .comp-card__btn {
