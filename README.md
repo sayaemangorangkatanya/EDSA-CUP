@@ -1,0 +1,2 @@
+# EDSA-CUP
+EDSA CUP Competition 2026
