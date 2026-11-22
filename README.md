@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Picture/EDSA.png" alt="EDSA logo" width="160">
+  <img src="Picture/Edsa cup.png" alt="EDSA logo" width="160">
 </p>
 
 <h1 align="center">EDSA Cup 2026</h1>
