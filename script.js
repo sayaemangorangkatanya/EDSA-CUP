@@ -293,7 +293,7 @@ function setupRevealOnScroll() {
 
   if (!("IntersectionObserver" in window)) {
     items.forEach((el) => el.classList.add("is-visible"));
-    return;a
+    return;
   }
 
   const observer = new IntersectionObserver(
