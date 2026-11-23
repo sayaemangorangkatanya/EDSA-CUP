@@ -644,6 +644,24 @@ body.wipe-reset::after {
   }
 }
 
+/* layar sedang (HP miring / tablet kecil): judul dikecilkan supaya tidak menabrak menu */
+@media (max-width: 720px) {
+  .navbar__brand {
+    margin-left: 1.25rem;
+  }
+
+  .navbar__nav {
+    margin-right: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .navbar__title {
+    white-space: nowrap;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+  }
+}
+
 @media (max-width: 560px) {
   :root {
     --nav-h: 54px;
@@ -669,8 +687,15 @@ body.wipe-reset::after {
     height: 34px;
   }
 
+  /* judul tetap tampil di HP: ukurannya mengikuti lebar layar supaya muat bersama menu */
   .navbar__title {
-    display: none;
+    font-size: clamp(0.6rem, 2.7vw, 0.85rem);
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  .navbar__nav {
+    flex-shrink: 0;
   }
 
   .about {
