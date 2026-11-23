@@ -235,3 +235,15 @@
     transition: none;
   }
 }
+
+/* ---------- BACKGROUND HP: satu gambar 1080 x 2400 untuk semua bagian ---------- */
+@media (max-width: 600px) {
+  .reg-hero,
+  .reg-section--futsal,
+  .reg-section--badminton {
+    background-image: url("Background/mobile%20size.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 222.22vw;
+  }
+}

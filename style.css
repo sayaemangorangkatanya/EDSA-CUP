@@ -729,3 +729,18 @@ body.wipe-reset::after {
     transition: none;
   }
 }
+
+/* ---------- BACKGROUND HP: satu gambar 1080 x 2400 untuk semua bagian ----------
+   min-height 222.22vw = 2400 / 1080 x lebar layar -> gambar tampil utuh (tidak terpotong
+   atas-bawah). Kalau isi bagiannya lebih tinggi, bagian itu memanjang dan gambar menyesuaikan. */
+@media (max-width: 600px) {
+  .hero,
+  .about,
+  .competition,
+  .footer {
+    background-image: url("Background/mobile%20size.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 222.22vw;
+  }
+}
