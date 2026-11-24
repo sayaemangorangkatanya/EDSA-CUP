@@ -236,14 +236,17 @@
   }
 }
 
-/* ---------- BACKGROUND HP: satu gambar 1080 x 2400 untuk semua bagian ---------- */
+/* ---------- BACKGROUND HP: 4 potongan 1080 x 2200 ---------- */
 @media (max-width: 600px) {
   .reg-hero,
   .reg-section--futsal,
   .reg-section--badminton {
-    background-image: url("Background/mobile%20size.png");
     background-size: cover;
     background-position: center;
-    min-height: 222.22vw;
+    background-repeat: no-repeat;
   }
+  .reg-hero              { background-image: url("Background/m-hero.png"); }
+  .reg-section--futsal   { background-image: url("Background/m-about.png"); }
+  .reg-section--badminton{ background-image: url("Background/m-event.png"); }
+  .reg-section--footer   { background-image: url("Background/m-footer.png"); }
 }
