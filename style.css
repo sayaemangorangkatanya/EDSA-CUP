@@ -734,13 +734,13 @@ body.wipe-reset::after {
    min-height 222.22vw = 2400 / 1080 x lebar layar -> gambar tampil utuh (tidak terpotong
    atas-bawah). Kalau isi bagiannya lebih tinggi, bagian itu memanjang dan gambar menyesuaikan. */
 @media (max-width: 600px) {
-  .hero,
-  .about,
-  .competition,
-  .footer {
-    background-image: url("Background/mobile%20size.png");
+  .hero, .about, .competition, .footer {
     background-size: cover;
     background-position: center;
-    min-height: 222.22vw;
-  }
+    background-repeat: no-repeat;
+   }
+  .hero        { background-image: url("Background/m-hero.png"); }
+  .about       { background-image: url("Background/m-about.png"); }
+  .competition { background-image: url("Background/m-event.png"); }
+  .footer      { background-image: url("Background/m-footer.png"); }
 }
