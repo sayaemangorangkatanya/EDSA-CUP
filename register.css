@@ -236,17 +236,25 @@
   }
 }
 
-/* ---------- BACKGROUND HP: 4 potongan 1080 x 2200 ---------- */
+/* ---------- BACKGROUND HP: 4 potongan 1080 x 2200 jadi satu background menerus (lihat style.css) ----------
+   Urutan: m-hero (judul), m-about (Futsal), m-event (Badminton), m-footer. */
 @media (max-width: 600px) {
+  .page--register {
+    background-color: #01175f;
+    background-image:
+      url("Background/m-hero.png"),
+      url("Background/m-about.png"),
+      url("Background/m-event.png"),
+      url("Background/m-footer.png");
+    background-repeat: no-repeat;
+    background-size: 100% 25%;
+    background-position: center 0%, center 33.3333%, center 66.6667%, center 100%;
+  }
+
   .reg-hero,
   .reg-section--futsal,
   .reg-section--badminton {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: none;
+    min-height: 0;
   }
-  .reg-hero              { background-image: url("Background/m-hero.png"); }
-  .reg-section--futsal   { background-image: url("Background/m-about.png"); }
-  .reg-section--badminton{ background-image: url("Background/m-event.png"); }
-  .reg-section--footer   { background-image: url("Background/m-footer.png"); }
 }

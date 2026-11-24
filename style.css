@@ -730,17 +730,26 @@ body.wipe-reset::after {
   }
 }
 
-/* ---------- BACKGROUND HP: satu gambar 1080 x 2400 untuk semua bagian ----------
-   min-height 222.22vw = 2400 / 1080 x lebar layar -> gambar tampil utuh (tidak terpotong
-   atas-bawah). Kalau isi bagiannya lebih tinggi, bagian itu memanjang dan gambar menyesuaikan. */
+/* ---------- BACKGROUND HP: 4 potongan 1080 x 2200 ditumpuk jadi SATU background menerus ----------
+   Urutan atas -> bawah: m-hero, m-about, m-event, m-footer.
+   Semuanya dipasang di <main>, tiap potongan = 25% tinggi halaman dan selebar layar, jadi
+   sambungan antar potongan selalu pas berapa pun tinggi isi tiap bagian. Bagian-bagian
+   (hero/about/event/footer) dibuat transparan supaya background ini yang terlihat. */
 @media (max-width: 600px) {
-  .hero, .about, .competition, .footer {
-    background-size: cover;
-    background-position: center;
+  .page {
+    background-color: #01175f;
+    background-image:
+      url("Background/m-hero.png"),
+      url("Background/m-about.png"),
+      url("Background/m-event.png"),
+      url("Background/m-footer.png");
     background-repeat: no-repeat;
-   }
-  .hero        { background-image: url("Background/m-hero.png"); }
-  .about       { background-image: url("Background/m-about.png"); }
-  .competition { background-image: url("Background/m-event.png"); }
-  .footer      { background-image: url("Background/m-footer.png"); }
+    background-size: 100% 25%;
+    background-position: center 0%, center 33.3333%, center 66.6667%, center 100%;
+  }
+
+  .hero, .about, .competition, .footer {
+    background: none;
+    min-height: 0;
+  }
 }
